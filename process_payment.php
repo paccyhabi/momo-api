@@ -1,5 +1,5 @@
 <?php
-include_once("config.php"); // Ensure this file contains the baseUrl and any other necessary configurations
+include_once("config.php"); 
 
 function createApiUser($referenceId, $secondaryKey, $callbackHost) {
     global $baseUrl;
@@ -210,9 +210,9 @@ function requestToPay($accessToken, $secondaryKey, $referenceId, $amount, $exter
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $referenceId = $uuid; // Generate or set the UUID as needed
-    $callbackHost = "localhost/momo/api"; // Replace with actual callback host if necessary
-    $secondaryKey = '1820814545d34fcfb29eb7543f2ea4cf'; 
+    $referenceId = $uuid; 
+    $callbackHost = "localhost/momo/api";
+    $secondaryKey = $secondaryKey; 
     $amount = $_POST['amount'];
     $externalId = $shortUuid;
     $payerPartyId = $_POST['phoneNumber'];
@@ -255,6 +255,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error: " . (isset($response['error']) ? $response['error'] : 'Unknown error') . "\n";
     }   
     
+    //request to pay
     $response = requestToPay($accessToken, $secondaryKey, $referenceId, $amount, $externalId, $payerPartyId, $callbackHost);
     if ($response['success']) {
         echo "Request to Pay was successful! The response code is: " . $response['http_code'];
